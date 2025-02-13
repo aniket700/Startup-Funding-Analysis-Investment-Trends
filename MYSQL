@@ -1,0 +1,37 @@
+CREATE TABLE startup_funding (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    startup VARCHAR(255),
+    vertical VARCHAR(255),
+    city VARCHAR(255),
+    investors TEXT,
+    round VARCHAR(50),
+    amount FLOAT,
+    year INT,
+    state VARCHAR(255)
+);
+
+INSERT INTO startup_funding (startup, vertical, city, investors, round, amount, year, state) 
+VALUES 
+('Zomato', 'FoodTech', 'Delhi', 'Sequoia Capital', 'Series C', 200, 2018, 'Delhi'),
+('Paytm', 'FinTech', 'Noida', 'SoftBank', 'Series D', 500, 2019, 'Uttar Pradesh');
+
+Query 1: Total Funding by Industry
+SELECT vertical, SUM(amount) AS total_funding
+FROM startup_funding
+GROUP BY vertical
+ORDER BY total_funding DESC
+LIMIT 10;
+
+Query 2: Top 5 Cities with Highest Funding
+SELECT city, SUM(amount) AS total_funding
+FROM startup_funding
+GROUP BY city
+ORDER BY total_funding DESC
+LIMIT 5;
+
+Top Investors by Number of Deals
+SELECT investors, COUNT(*) AS num_investments
+FROM startup_funding
+GROUP BY investors
+ORDER BY num_investments DESC
+LIMIT 10;
